@@ -1,5 +1,5 @@
 import {v2 as cloudinary} from "cloudinary"
-import { Cloudinary_API_Key, Cloudinary_Name, Cloudinary_Secret } from "./ENV_Variable.js";
+import { Cloudinary_API_Key, Cloudinary_Name, Cloudinary_Secret } from "./ENV_variable.js";
 
 
  cloudinary.config({
@@ -10,7 +10,7 @@ import { Cloudinary_API_Key, Cloudinary_Name, Cloudinary_Secret } from "./ENV_Va
 
 
 
-
+ 
 export const uploadBuffer = (buffer , option = {})=>{
     return new Promise((resolve,reject)=>{
         const stream = cloudinary.uploader.upload_stream(option,(error,result)=>{

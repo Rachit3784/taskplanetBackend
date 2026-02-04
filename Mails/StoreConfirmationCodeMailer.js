@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer'
-import { Email, Email_Pass } from '../config/ENV_Variable.js'
+import { Email, Email_Pass } from '../config/ENV_variable.js'
 import { htmlTemplate } from './StoreCodeHTML.js';
 
 const transport = nodemailer.createTransport({

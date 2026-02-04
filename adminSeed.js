@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { Admins } from "./models/AdminSchema.js";
-import { Dburl } from "./config/ENV_Variable.js";
+import { Dburl } from "./config/ENV_variable.js";
 
 
 const MONGO_URI = Dburl;
