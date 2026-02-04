@@ -205,7 +205,8 @@ export const verifyUser = async (req, res) => {
   
     res.cookie('token', mytoken, {
       httpOnly: true,
-    
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none'
     });
 
     
@@ -319,7 +320,8 @@ export const LoginUser = async (req, res) => {
     // 6. Set cookie
     res.cookie('token', mytoken, {
       httpOnly: true,
-      
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none'
     });
 
     return res.status(200).json({
@@ -502,8 +504,8 @@ export const actionOnforgetPass = async (req, res) => {
         
         res.cookie('token', mytoken, {
             httpOnly: true,
-            // secure: true, // uncomment in production
-            // sameSite: 'Strict'
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'none'
         });
         
         // ✅ Finally, clean up OTP and timeout after a successful password reset

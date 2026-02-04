@@ -24,14 +24,36 @@ const start = async ()=>{
     
     app.use(e.json());
     app.use(cookieParser());
-app.use(cors({
-  
-  origin:[ 'https://taskplanet-frontend-pi.vercel.app' , 'http://localhost:5173' ,'exp://10.36.28.27:8081', '127.0.0.0.1'],
-  
+
+const whitelist = [ 'https://taskplanet-frontend-pi.vercel.app', 'http://localhost:5173' ];
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+
+// Handle preflight requests centrally to avoid using path patterns that break some router versions
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    // Apply CORS middleware for this preflight request and finish
+    return cors(corsOptions)(req, res, () => res.status(204).end());
+  }
+  // Ensure credentials header is available on responses
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 
    app.use('/authenticate',UserRouter)
   app.use('/post',PostRouter);
