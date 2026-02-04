@@ -94,8 +94,8 @@ const LocalTimeouts = new Map();
 export const CreateUser = async (req, res) => {
   try {
     const { username, fullname, email, password , gender } = req.body;
-     console.log({ username, fullname, email, password , gender } )
-    // 1. Input validation
+     
+    
     if (!username || !fullname || !email || !password) {
       return res.status(400).json({ msg: "Details are missing" });
     }
@@ -160,8 +160,7 @@ export const CreateUser = async (req, res) => {
 export const verifyUser = async (req, res) => {
   try {
     const { email, otp } = req.body;
-    console.log("Hitted this function")
-    console.log(otp)
+
     const exist = LocalOTP.get(email);
     
     if (!exist) {
@@ -170,7 +169,7 @@ export const verifyUser = async (req, res) => {
       });
     }
 
-    console.log(exist.myotp)
+ 
 
     if (otp !== exist.myotp) {
       return res.status(400).json({
@@ -184,7 +183,6 @@ export const verifyUser = async (req, res) => {
     }
 
 
-    console.log("yaha tak aa gae")
     const data = await Users.create({
       username: exist.username,
       fullname: exist.fullname,
@@ -197,16 +195,6 @@ export const verifyUser = async (req, res) => {
 
 
 
-   
-
-
-
-    
-    console.log("yahabbhbsjbh")
-
-
-    
-   
     
     const mytoken = jwt.sign(
       { userId: data._id, email, randomNum },
@@ -250,7 +238,7 @@ export const LoginWithCookie = async (req,res)=>{
 try{
 
   const user = req.MatchedUser;
-console.log(user,"kkkkkkkkkkkkk")
+
 
 const data = await Users.findById(user.userId);
 
@@ -286,9 +274,9 @@ const data = await Users.findById(user.userId);
 
 export const LoginUser = async (req, res) => {
   try {
-    console.log("Login Function Hitted By User")
+ 
     const { email, password } = req.body;
-     console.log(email,password)
+  
     // 1. Input validation
     if (!email || !password) {
       return res.status(400).json({ msg: "Email or Password missing" });
@@ -435,7 +423,7 @@ export const AccountRecover = async (req, res) => {
 export const verifyForgetPassUserOTP = async (req, res) => {
     try {
         const { email, otp } = req.body;
-        console.log("Hitted this function");
+      
 
         const exist = LocalOTP.get(email);
 

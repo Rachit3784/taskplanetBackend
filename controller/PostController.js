@@ -119,6 +119,7 @@ export const fetchMyPosts = async (req, res) => {
   }
 };
 
+
 export const DeleteMyPosts = async (req, res) => {
   try {
     const {  userId , postId} = req.body;
