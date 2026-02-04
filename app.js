@@ -26,7 +26,7 @@ const start = async ()=>{
     app.use(cookieParser());
 app.use(cors({
   
-  origin:[ 'http://192.168.152.1:5173' , 'http://localhost:5173' ,'exp://10.36.28.27:8081', '127.0.0.0.1'],
+  origin:[ 'https://taskplanet-frontend-pi.vercel.app' , 'http://localhost:5173' ,'exp://10.36.28.27:8081', '127.0.0.0.1'],
   
   credentials: true,
   methods: ['GET', 'POST', 'OPTIONS'],
