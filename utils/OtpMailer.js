@@ -1,11 +1,10 @@
 import nodemailer from 'nodemailer'
-import { Email, SENDGRID_API_KEY } from '../config/ENV_variable.js'
+import { Email, NODEMAILER_API_KEY } from '../config/ENV_variable.js'
 
-// Debug logging
-console.log('Email:', Email);
-console.log('SENDGRID_API_KEY exists:', !!SENDGRID_API_KEY);
 
-if (!SENDGRID_API_KEY) {
+
+
+if (!NODEMAILER_API_KEY) {
     console.error('ERROR: SENDGRID_API_KEY is not set in environment variables!');
 }
 
@@ -14,8 +13,8 @@ const transport = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user: 'apikey',
-        pass: SENDGRID_API_KEY
+        user: Email,
+        pass: NODEMAILER_API_KEY
     },
     connectionTimeout: 30000,
     socketTimeout: 30000
