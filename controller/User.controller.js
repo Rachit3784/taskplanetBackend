@@ -111,12 +111,11 @@ export const CreateUser = async (req, res) => {
     const Otp =  generateOtp();
     const html = htmlTemplate(Otp)
     
-    const result =  await SendOtpToUser({ otp : Otp, HTML: html, userEmail: email });
+    const result = await SendOtpToUser({ otp: Otp, HTML: html, userEmail: email });
 
-    
-    if (!result || !result.info.messageId) {
-      return res.status(400).json({ msg: "Failed to send OTP email" });
-    }
+if (!result || !result.info) {
+  return res.status(400).json({ msg: "Failed to send OTP email" });
+}
 
     
     LocalOTP.set(email, {

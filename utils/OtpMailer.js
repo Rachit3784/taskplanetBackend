@@ -1,41 +1,27 @@
-import nodemailer from 'nodemailer'
-import { Email, Email_Pass } from '../config/ENV_variable.js'
+import sgMail from "@sendgrid/mail";
+import { SENDGRID_API_KEY, EMAIL_USER } from "../config/ENV_variable.js";
 
-const transport = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-    auth : {
-        user : Email,
-        pass : Email_Pass
-    }
-});
+sgMail.setApiKey(SENDGRID_API_KEY);
 
-export const SendOtpToUser = async (data)=>{
-const mailOptions = {
-    from : Email,
-    to : data.userEmail,
-    subject : 'OTP To Register As Admin',
-    text : data.otp,
-    html : data.HTML
-}
+export const SendOtpToUser = async ({ otp, HTML, userEmail }) => {
+  const msg = {
+    to: userEmail,
+    from: EMAIL_USER, // must be verified in SendGrid
+    subject: "OTP To Register As Admin",
+    text: `Your OTP is ${otp}`,
+    html: HTML,
+  };
 
-return new Promise((resolve,reject)=>{
+  try {
+    const response = await sgMail.send(msg);
+    console.log("✅ OTP Mail Sent:", response[0].statusCode);
 
-
-    transport.sendMail(mailOptions , async (error,info)=>{
-if(error){
-    console.log(error)
-    reject(error)
-}else{
-    console.log(info)
-    resolve({ otp : data.otp , info})
-}
-})
-
-
-})
-
-
-
-}
+    return {
+      otp,
+      info: response[0], // success info
+    };
+  } catch (error) {
+    console.error("❌ OTP Mail Error:", error.response?.body || error);
+    throw error;
+  }
+};
