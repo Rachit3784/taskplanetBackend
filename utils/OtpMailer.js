@@ -4,6 +4,7 @@ import { Email, SENDGRID_API_KEY } from '../config/ENV_variable.js'
 const transport = nodemailer.createTransport({
     host: 'smtp.sendgrid.net',
     port: 587,
+      secure: false,
     auth: {
         user: 'apikey',
         pass: SENDGRID_API_KEY
