@@ -1,8 +1,6 @@
 import { Users } from "../models/UserSchema.js";
-
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-
 import mongoose from "mongoose";
 import { SendOtpToUser } from "../utils/OtpMailer.js";
 import { privateKey } from "../config/ENV_variable.js";

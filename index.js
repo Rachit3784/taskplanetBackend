@@ -9,5 +9,5 @@ const PORT = process.env.PORT || 4590;
 
 
 server.listen(PORT , ()=>{
-console.log(`server started at http://localhost:${PORT}`);
+console.log(`server started at https://taskplanetbackend-3.onrender.com`);
 })

@@ -14,7 +14,7 @@ export const verifyToken = async (req,res,next)=>{
 
 
         const decode = jwt.verify(mytoken , publicKey , {algorithms : ['RS256']});
-        console.log('JWT verified:', decode);
+       
 
      
 
@@ -44,8 +44,6 @@ export const verifyAdminToken = async (req,res,next)=>{
       req.cookies.token || 
       (req.headers.authorization && req.headers.authorization.split(' ')[1]);
 
-
-      console.log("yaha tak aake token nahi hai " , mytoken)
       
     if (!mytoken) {
       return res.status(401).json({ msg: "Unauthorized", success: false });
@@ -53,7 +51,7 @@ export const verifyAdminToken = async (req,res,next)=>{
 
 
         const decode = await jwt.verify(mytoken , publicKey , {algorithms : ['RS256']});
-         console.log('JWT verified:', decode);
+      
 
        req.AdminData = {email : decode.email,randomNum : decode.randomNum}
 
