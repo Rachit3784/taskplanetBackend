@@ -1,13 +1,15 @@
 import nodemailer from "nodemailer"
 import dotenv from "dotenv"
+import { Email, SENDGRID_API_KEY } from "../config/ENV_variable.js"
 dotenv.config();
 
 
 const transport = nodemailer.createTransport({
-    service : 'gmail',
-    auth : {
-        user : process.env.EMAIL,
-        pass : process.env.EMAIL_PASS
+    host: 'smtp.sendgrid.net',
+    port: 587,
+    auth: {
+        user: 'apikey',
+        pass: SENDGRID_API_KEY
     }
 });
 
@@ -36,9 +38,9 @@ const MailTemplate = `
 
 
 const mainOptions = {
-    from : "grachit736@gmail.com",
-    to : data.user,
-    subject : data.Subject,
+    from: Email,
+    to: data.user,
+    subject: data.Subject,
     html: MailTemplate
 
 };

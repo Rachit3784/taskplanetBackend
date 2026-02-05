@@ -1,21 +1,13 @@
 import nodemailer from 'nodemailer'
-import { Email, Email_Pass } from '../config/ENV_variable.js'
+import { Email, SENDGRID_API_KEY } from '../config/ENV_variable.js'
 
 const transport = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.sendgrid.net',
+    port: 587,
     auth: {
-        user: Email,
-        pass: Email_Pass
-    },
-    pool: {
-        maxConnections: 1,
-        maxMessages: 100,
-        rateDelta: 2000,
-        rateLimit: 5
-    },
-    socketTimeout: 10000,
-    connectionTimeout: 10000,
-    greetingTimeout: 10000
+        user: 'apikey',
+        pass: SENDGRID_API_KEY
+    }
 });
 
 export const SendOtpToUser = async (data) => {
